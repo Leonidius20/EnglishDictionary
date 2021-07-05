@@ -7,9 +7,9 @@ import androidx.room.Query
 interface WordDao {
 
     @Query("SELECT * FROM Words WHERE word_id = :id")
-    fun findById(id: Int): Word
+    suspend fun findById(id: Int): Word
 
-    @Query("SELECT * FROM Words WHERE word LIKE :searchTerm ORDER BY word ASC LIMIT 5")
-    fun getSearchSuggestions(searchTerm: String): Array<Word>
+    @Query("SELECT * FROM Words WHERE word LIKE :searchTerm || '%' ORDER BY word ASC LIMIT 5")
+    suspend fun getSearchSuggestions(searchTerm: String): Array<Word>
 
 }

@@ -3,6 +3,9 @@ package ua.leonidius.endict.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import ua.leonidius.endict.MainActivity
 import ua.leonidius.endict.entities.word.Word
 
@@ -18,7 +21,9 @@ class HomeViewModel : ViewModel() {
     }
 
     fun refreshSuggestions(searchTerm: String) {
-        suggestions.value = MainActivity.instance.db.wordDao().getSearchSuggestions(searchTerm)
+        viewModelScope.launch(Dispatchers.IO) {
+            suggestions.postValue(MainActivity.instance.db.wordDao().getSearchSuggestions(searchTerm))
+        }
     }
 
 }

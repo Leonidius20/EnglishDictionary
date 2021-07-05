@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
         // creating database object
         db = Room.databaseBuilder(
             applicationContext,
-            DictDatabase::class.java, "database-name"
-        ).build()
+            DictDatabase::class.java, "endict.db"
+        ).createFromAsset("endict.db").build()
 
         instance = this
     }

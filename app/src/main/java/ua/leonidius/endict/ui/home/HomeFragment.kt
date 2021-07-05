@@ -10,6 +10,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.GlobalScope
 import ua.leonidius.endict.R
 
 class HomeFragment : Fragment() {
@@ -31,11 +32,13 @@ class HomeFragment : Fragment() {
 
         val searchBox: EditText = root.findViewById(R.id.search_box)
         searchBox.addTextChangedListener {
-            homeViewModel.refreshSuggestions(it.toString())
+            GlobalScope.run {
+                homeViewModel.refreshSuggestions(it.toString())
+            }
         }
 
         homeViewModel.suggestions.observe(viewLifecycleOwner) {
-            textView.text = it.toString()
+            textView.text = it.joinToString { word -> word.word }
         }
 
         return root
