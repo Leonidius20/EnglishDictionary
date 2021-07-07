@@ -9,7 +9,10 @@ interface WordDao {
     @Query("SELECT * FROM Words WHERE word_id = :id")
     suspend fun findById(id: Int): Word
 
-    @Query("SELECT * FROM Words WHERE word LIKE :searchTerm || '%' ORDER BY word ASC LIMIT 5")
-    suspend fun getSearchSuggestions(searchTerm: String): Array<Word>
+    @Query("SELECT * FROM Words WHERE word = :word")
+    suspend fun find(word: String): Word?
+
+    @Query("SELECT word FROM Words WHERE word LIKE :searchTerm || '%' ORDER BY word ASC LIMIT 5")
+    suspend fun getSearchSuggestions(searchTerm: String): Array<String>
 
 }

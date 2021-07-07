@@ -16,7 +16,7 @@ class HomeViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-    val suggestions = MutableLiveData<Array<Word>>().apply {
+    val suggestions = MutableLiveData<Array<String>>().apply {
         value = emptyArray()
     }
 
