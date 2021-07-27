@@ -57,20 +57,6 @@ class MainActivity : AppCompatActivity() {
             .createFromAsset("english_dictionary.db")
             .build()
 
-
-        /*val labelTexts = arrayOf(
-            "Australian", "medical", "Canadian", "scientific",
-            "British", "transitive verb", "New Zealand", "legal", "archaic", "Irish",
-            "formal", "AAVE", "US", "phrasal verb", "offensive", "American",
-            "intransitive verb", "technical", "mathematical", "euphemistic", "South African",
-            "UK", "idiom", "informal", "Indian", "slang"
-        )
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            db.labelTypeDao().addLabelTypes(*labelTexts.map { LabelType(it) }.toTypedArray())
-
-        }*/
-
         instance = this
     }
 

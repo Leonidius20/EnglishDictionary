@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ua.leonidius.endict.R
 
 class WordFragment : Fragment() {
@@ -27,14 +29,16 @@ class WordFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.word_fragment, container, false)
 
-        val textField: TextView = root.findViewById(R.id.temptext)
-        textField.text = args.word
+        val wordTextField: TextView = root.findViewById(R.id.word_text_view)
+        val definitionsList: RecyclerView = root.findViewById(R.id.definitions_list)
+
+        wordTextField.text = args.word
 
         viewModel = ViewModelProvider(this).get(WordViewModel::class.java)
 
         viewModel.wordObject.observe(viewLifecycleOwner) {
             Toast.makeText(context, it!!.word, Toast.LENGTH_SHORT).show()
-            viewModel.loadDefinitions(it.wordId!!)
+            viewModel.loadDefinitions(it.wordId)
         }
 
         viewModel.wordExists.observe(viewLifecycleOwner) {
@@ -43,7 +47,11 @@ class WordFragment : Fragment() {
         }
 
         viewModel.wordDefinitions.observe(viewLifecycleOwner) {
-            textField.text = textField.text as String + "" + it.map { definition -> definition.definitionText }.joinToString()
+            val adapter = DefinitionAdapter(it)
+            definitionsList.adapter = adapter
+            definitionsList.layoutManager = LinearLayoutManager(context)
+
+            // textField.text = textField.text as String + "" + it.map { definition -> definition.definitionText }.joinToString()
         }
 
         viewModel.loadWord(args.word)
