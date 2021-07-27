@@ -10,7 +10,10 @@ import androidx.room.PrimaryKey
 ])
 data class Word (
 
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "word_id") val wordId: Int,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "word_id", collate = ColumnInfo.NOCASE)
+    val wordId: Int,
+
     val word: String
 
 )

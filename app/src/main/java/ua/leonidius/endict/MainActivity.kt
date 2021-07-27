@@ -1,10 +1,16 @@
 package ua.leonidius.endict
 
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -57,7 +63,19 @@ class MainActivity : AppCompatActivity() {
             .createFromAsset("english_dictionary.db")
             .build()
 
+        delegate.isHandleNativeActionModesEnabled = false // so that custom text selection menu items appear
+
         instance = this
+
+        if (intent.hasExtra(Intent.EXTRA_PROCESS_TEXT)) {
+            val text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT).toString()
+            val pendingIntent = NavDeepLinkBuilder(this)
+                .setGraph(R.navigation.mobile_navigation)
+                .setDestination(R.id.wordFragment)
+                .setArguments(bundleOf("word" to text))
+                .createPendingIntent()
+            pendingIntent.send()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -15,7 +15,7 @@ import ua.leonidius.endict.R
 
 class WordFragment : Fragment() {
 
-    val args: WordFragmentArgs by navArgs()
+    private val args: WordFragmentArgs by navArgs()
 
     companion object {
         fun newInstance() = WordFragment()
