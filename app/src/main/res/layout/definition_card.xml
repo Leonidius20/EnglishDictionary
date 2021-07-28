@@ -40,8 +40,20 @@
             android:textColor="#8A000000"
             app:layout_constraintTop_toBottomOf="@+id/definition_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/labels_container"
             app:layout_constraintBottom_toTopOf="@+id/usage_examples" />
+
+        <LinearLayout
+            android:id="@+id/labels_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/definition_text"
+            app:layout_constraintStart_toEndOf="@+id/part_of_speech_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/usage_examples"
+            android:padding="0dp">
+        </LinearLayout>
 
         <TextView
             android:id="@+id/usage_examples"

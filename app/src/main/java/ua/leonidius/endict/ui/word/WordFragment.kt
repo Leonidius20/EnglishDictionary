@@ -47,7 +47,7 @@ class WordFragment : Fragment() {
         }
 
         viewModel.wordDefinitions.observe(viewLifecycleOwner) {
-            val adapter = DefinitionAdapter(it)
+            val adapter = DefinitionAdapter(it, context!!)
             definitionsList.adapter = adapter
             definitionsList.layoutManager = LinearLayoutManager(context)
 

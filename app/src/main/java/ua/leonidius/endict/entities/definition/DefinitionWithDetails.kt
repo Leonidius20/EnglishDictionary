@@ -6,7 +6,9 @@ import androidx.room.Relation
 import ua.leonidius.endict.entities.label_assignment.LabelAssignment
 import ua.leonidius.endict.entities.label_type.LabelType
 import ua.leonidius.endict.entities.part_of_speech.PartOfSpeech
+import ua.leonidius.endict.entities.synonymic_relation.SynonymicRelation
 import ua.leonidius.endict.entities.usage_example.UsageExample
+import ua.leonidius.endict.entities.word.Word
 
 data class DefinitionWithDetails(
     @Embedded val definition: Definition,
@@ -20,4 +22,9 @@ data class DefinitionWithDetails(
     @Relation(parentColumn = "definition_id", entityColumn = "label_id",
         associateBy = Junction(LabelAssignment::class, parentColumn = "definition_id", entityColumn = "label_type_id"))
     val labels: List<LabelType>,
+
+    @Relation(parentColumn = "definition_id", entityColumn = "word_id",
+        associateBy = Junction(SynonymicRelation::class))
+    val synonyms: List<Word>,
+
 )
