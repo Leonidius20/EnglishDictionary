@@ -29,15 +29,11 @@ class WordFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.word_fragment, container, false)
 
-        val wordTextField: TextView = root.findViewById(R.id.word_text_view)
         val definitionsList: RecyclerView = root.findViewById(R.id.definitions_list)
-
-        wordTextField.text = args.word
 
         viewModel = ViewModelProvider(this).get(WordViewModel::class.java)
 
         viewModel.wordObject.observe(viewLifecycleOwner) {
-            Toast.makeText(context, it!!.word, Toast.LENGTH_SHORT).show()
             viewModel.loadDefinitions(it.wordId)
         }
 
@@ -47,11 +43,9 @@ class WordFragment : Fragment() {
         }
 
         viewModel.wordDefinitions.observe(viewLifecycleOwner) {
-            val adapter = DefinitionAdapter(it, context!!)
+            val adapter = DefinitionAdapter(it, context!!, viewModel.wordObject.value!!.word)
             definitionsList.adapter = adapter
             definitionsList.layoutManager = LinearLayoutManager(context)
-
-            // textField.text = textField.text as String + "" + it.map { definition -> definition.definitionText }.joinToString()
         }
 
         viewModel.loadWord(args.word)
