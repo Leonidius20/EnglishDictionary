@@ -22,6 +22,7 @@ class DefinitionAdapter(private val definitions: Array<DefinitionWithDetails>,
         val partOfSpeechTextView: TextView = itemView.findViewById(R.id.part_of_speech_text)
         val usageExamplesTextView: TextView = itemView.findViewById(R.id.usage_examples)
         val labelsContainer: LinearLayout = itemView.findViewById(R.id.labels_container)
+        val synonymsTextView: TextView = itemView.findViewById(R.id.synonyms)
 
     }
 
@@ -51,6 +52,13 @@ class DefinitionAdapter(private val definitions: Array<DefinitionWithDetails>,
             view.text = it.labelText
             holder.labelsContainer.addView(view)
         }
+
+        if (definition.synonyms.isNotEmpty()) {
+            holder.synonymsTextView.text = String.format(
+                context.resources.getString(R.string.def_card_synonyms),
+                definition.synonyms.joinToString(", ") { it.word })
+        }
+
     }
 
 }
