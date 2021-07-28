@@ -6,13 +6,14 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ua.leonidius.endict.MainActivity
 import ua.leonidius.endict.entities.definition.Definition
+import ua.leonidius.endict.entities.definition.DefinitionWithDetails
 import ua.leonidius.endict.entities.word.Word
 
 class WordViewModel : ViewModel() {
 
     val wordObject = MutableLiveData<Word>()
     val wordExists = MutableLiveData<Boolean>()
-    val wordDefinitions = MutableLiveData<Array<Definition>>()
+    val wordDefinitions = MutableLiveData<Array<DefinitionWithDetails>>()
 
     fun loadWord(word: String) {
         viewModelScope.launch {
