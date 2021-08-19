@@ -1,19 +1,23 @@
 package ua.leonidius.endict.ui.word
 
-import androidx.lifecycle.ViewModelProvider
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ua.leonidius.endict.R
 
-class WordFragment : Fragment() {
+
+class WordFragment : Fragment(), TextToSpeech.OnInitListener {
 
     private val args: WordFragmentArgs by navArgs()
 
@@ -28,6 +32,8 @@ class WordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.word_fragment, container, false)
+
+        initTts()
 
         val definitionsList: RecyclerView = root.findViewById(R.id.definitions_list)
 
@@ -53,9 +59,23 @@ class WordFragment : Fragment() {
         return root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    private fun initTts() {
 
+        val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // There are no request codes
+                val data: Intent? = result.data
+                doSomeOperations()
+            }
+        }
+
+        val intent = Intent()
+        resultLauncher.launch(intent)
     }
+
+    override fun onInit(status: Int) {
+        TODO("Not yet implemented")
+    }
+
 
 }

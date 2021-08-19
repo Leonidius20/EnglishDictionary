@@ -5,6 +5,7 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,7 @@ class DefinitionAdapter(
     class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val wordTextView: TextView = itemView.findViewById(R.id.word_text_view)
+        val ttsButton: ImageButton = itemView.findViewById(R.id.tts_button)
 
     }
 
@@ -59,6 +61,9 @@ class DefinitionAdapter(
         if (position == 0) {
             val holder = viewHolder as HeaderViewHolder
             holder.wordTextView.text = word
+            holder.ttsButton.setOnClickListener {
+
+            }
         } else {
             val holder = viewHolder as ViewHolder
             val definition = definitions[position - 1]
