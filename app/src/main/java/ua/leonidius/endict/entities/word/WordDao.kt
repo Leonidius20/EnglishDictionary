@@ -7,7 +7,7 @@ import androidx.room.Query
 interface WordDao {
 
     @Query("SELECT * FROM Words WHERE word_id = :id")
-    suspend fun findById(id: Int): Word
+    suspend fun findById(id: Int): Word?
 
     @Query("SELECT * FROM Words WHERE word = :word COLLATE NOCASE")
     suspend fun find(word: String): Word?

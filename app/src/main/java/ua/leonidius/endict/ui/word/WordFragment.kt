@@ -65,12 +65,12 @@ class WordFragment : Fragment(), TextToSpeech.OnInitListener {
             if (result.resultCode == Activity.RESULT_OK) {
                 // There are no request codes
                 val data: Intent? = result.data
-                doSomeOperations()
+                // doSomeOperations()
             }
         }
 
         val intent = Intent()
-        resultLauncher.launch(intent)
+        //resultLauncher.launch(intent)// todo fix crash "no activity found"
     }
 
     override fun onInit(status: Int) {

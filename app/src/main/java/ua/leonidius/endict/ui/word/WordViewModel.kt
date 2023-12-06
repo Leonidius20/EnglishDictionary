@@ -21,7 +21,7 @@ class WordViewModel : ViewModel() {
             if (wordObj == null) {
                 wordExists.postValue(false)
             } else {
-                wordObject.postValue(wordObj)
+                wordObject.postValue(wordObj!!) // todo: this !! is just to get it to compile
             }
         }
 
